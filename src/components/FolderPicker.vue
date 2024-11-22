@@ -29,7 +29,12 @@ import { onMounted, onUnmounted } from "vue"
 
 const emit = defineEmits(["files"])
 
-const handleKeyDown = () => handleFolderSelect()
+const handleKeyDown = (e) => {
+	const key = e.key
+	if (/^[a-zA-Z0-9]$/.test(key) || key === " " || key === "Enter") {
+		handleFolderSelect()
+	}
+}
 
 onUnmounted(() => {
 	window.removeEventListener("keydown", handleKeyDown)
@@ -52,6 +57,5 @@ const handleFolderSelect = async () => {
 	}
 
 	emit("files", files)
-	console.log(files)
 }
 </script>
